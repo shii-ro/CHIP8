@@ -6,6 +6,7 @@ c.height = 32;
 class CHIP8 {
     framebuffer = ctx.createImageData(c.width, c.height);
     constructor() {
+        this.keyboard[16];
         this.mem = new Uint8Array(4096);
         this.V = new Uint8Array(16); // Registers
         this.S = new Uint16Array(16); // Stack
@@ -56,7 +57,12 @@ class CHIP8 {
         ctx.putImageData(this.framebuffer, 0, 0);
     }
 
+    handleKeys(){
+        
+    }
+
     reset() {
+        this.running = true;
         this.mem.fill(0);
         this.V.fill(0);
         this.S.fill(0);
@@ -154,6 +160,11 @@ class CHIP8 {
                         currpixel <<= 1;
                     }
                     this.drawFlag = true;
+                }
+                break;
+            case 0xE:
+                switch (kk) {
+                    case 0x9E: this.keyboard.;break;
                 }
                 break;
             case 0xF:

@@ -116,8 +116,13 @@
             </div>
         </section>
     </main>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script src="chip8.js"></script>
     <script>
+        $(document).on("keydown", function (e) {
+    // e.which(ch.);
+    console.log('Key pressed!');
+    }); 
         var c8 = new CHIP8();
 
         c8.init();
