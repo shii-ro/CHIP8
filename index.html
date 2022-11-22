@@ -11,17 +11,20 @@
 <body>
     <main>
         <section class="emulator">
-            <div class="screen">
-                <canvas id="canvas"></canvas>
-                <div class="buttons">
-                    <label for="rom">Select ROM: <input id="rom" type='file' onchange="loadRom(this)"></label>
-                    <div class="buttons-inside">
-                        <button onclick="c8.run();">Run</button>
-                        <button onclick="c8.step();">Step</button>
-                        <button>Pause</button>
-                        <button>Stop</button>
+                <div class="screen">
+                    <canvas id="canvas"></canvas>
+                    <div class="buttons">
+                        <label for="rom">Select ROM: <input id="rom" type='file' onchange="loadRom(this)"></label>
+                        <div class="buttons-inside">
+                            <button onclick="c8.run();">Run</button>
+                            <button onclick="c8.step();">Step</button>
+                            <button>Pause</button>
+                            <button>Stop</button>
+                        </div>
                     </div>
-                </div>
+                    <div class="debugger">
+                        <p>Future debugging</p>
+                    </div>
                 </div>
 
             <div class="registers">

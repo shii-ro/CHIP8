@@ -76,7 +76,7 @@ class CHIP8 {
     }
 
     run() {
-        this.cycle();
+        if (this.running) this.cycle();
         setTimeout(this.run.bind(this), 1);
     }
 
@@ -105,13 +105,16 @@ class CHIP8 {
                 }
                 break;
             case 0x1: this.PC = nnn; break;
-            case 0x4:
-                if (this.V[x] != kk) {
-                    this.PC += 2;
-                }
-                break;
+            case 0x2: this.S[++this.SP] = this.PC; this.PC = nnn; break;
+            case 0x3: if (this.V[x] === kk) this.PC += 2; break;
+            case 0x4: if (this.V[x] !== kk) this.PC += 2; break;
             case 0x6: this.V[x] = kk; break; // LD vx, byte
             case 0x7: this.V[x] = this.V[x] + kk; break;
+            case 0x8:
+                switch(n){
+                    case 0x1: break;
+                }
+                break;
             case 0xA: this.I = nnn; break; // LD I, nnn
             case 0xD: // i'll finish this later
                 let posX = this.V[x];
@@ -119,19 +122,21 @@ class CHIP8 {
                 for (let rows = 0; rows < n; rows++) {
                     let currpixel = this.mem[this.I + rows];
                     let y = (rows + posY) * 64;
+
                     for (let columns = 0; columns < 8; columns++) {
                         let index = columns + posX + y;
-                        if (currpixel & 0x80) {
-                            this.drawPixel(index * 4, 0xFFFFFF);
-                        }else{
-                            this.drawPixel(index * 4, 0x000000);
-                        }
+                        this.drawPixel(index * 4, 0xFFFFFF * ((currpixel & 0x80) === 0x80));
                         currpixel <<= 1;
                     }
                     this.drawFlag = true;
                 }
                 break;
-            default: console.log("instruction not implemented: ", this.OC); this.running = false; break;
+            case 0xF:
+                switch (kk) {
+                    case 0x1E: this.I = this.I + this.V[x]; break;
+                }
+                break;
+            default: console.log("instruction not implemented: ", this.OC.toString(16)); this.running = false; break;
         }
 
         if (this.drawFlag) {

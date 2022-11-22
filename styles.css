@@ -27,12 +27,25 @@
 .screen {
     margin: 0 auto;
     width: 50vw;
-    height: 25vw;
+    height: 100vh;
+}
+
+.debugger {
+    display: flex;
+    flex-direction: row;
+    border: 1px solid black;
+    align-items: center;
+    justify-content: space-around;
+    text-align: center;
+    height: 30vh;
+    margin: 1rem 0;
+    border-radius: 5px;
 }
 
 .registers{
     display: flex;
     flex-direction: column;
+    margin: 0 5%;
 }
 .registers-table {
     display: flex;
@@ -110,6 +123,9 @@
     justify-content: space-between;
     color: #F7F4D4;
     font-weight: 600;
+    text-align: center;
+    align-items: center;
+    vertical-align: center;
 }
 .buttons-inside{
     margin-left: 20px;
