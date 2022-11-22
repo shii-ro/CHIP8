@@ -58,7 +58,7 @@ class CHIP8 {
     }
 
     handleKeys(){
-        
+        this.keyboard
     }
 
     reset() {
@@ -147,6 +147,8 @@ class CHIP8 {
                 }
                 break;
             case 0xA: this.I = nnn; break; // LD I, nnn
+            case 0xB: this.PC = nnn + this.V[0x0]; break;
+            case 0xC: this.V[x] = Math.floor(Math.random() * 256) & kk; break;
             case 0xD: // i'll finish this later
                 let posX = this.V[x];
                 let posY = this.V[y];
@@ -164,7 +166,7 @@ class CHIP8 {
                 break;
             case 0xE:
                 switch (kk) {
-                    case 0x9E: this.keyboard.;break;
+                    case 0x9E: ; break;
                 }
                 break;
             case 0xF:
