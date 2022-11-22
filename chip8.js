@@ -111,8 +111,33 @@ class CHIP8 {
             case 0x6: this.V[x] = kk; break; // LD vx, byte
             case 0x7: this.V[x] = this.V[x] + kk; break;
             case 0x8:
-                switch(n){
-                    case 0x1: break;
+                switch (n) {
+                    case 0x0: this.V[x] = this.V[y]; break;
+                    case 0x1: this.V[x] = this.V[x] | this.V[y]; break;
+                    case 0x2: this.V[x] = this.V[x] & this.V[y]; break;
+                    case 0x3: this.V[x] = this.V[x] ^ this.V[y]; break;
+                    case 0x4:
+                        let sum = (this.V[x] + this.V[y]);
+                        this.V[x] = sum & 0xFF;
+                        if (sum > 0xFF) this.V[0xF] = 1;
+                        break;
+                    case 0x5:
+                        this.V[0xF] = (this.V[x] > this.V[y]) ? 1 : 0;
+                        this.V[x] = this.V[x] - this.V[y];
+                        break;
+                    case 0x6:
+                        this.V[0xF] = this.V[x] & 0x1;
+                        this.V[x] = this.V[x] / 2;
+                        break;
+                    case 0x7:
+                        this.V[0xF] = (this.V[y] > this.V[x]) ? 1 : 0;
+                        this.V[x] = this.V[y] - this.V[x];
+                        break;
+                    case 0xE:
+                        this.V[0xF] = this.V[x] >> 7;
+                        this.V[x] = this.V[x] * 2;
+                        break;
+                    default: console.log("instruction not implemented: ", this.OC.toString(16)); this.running = false; break;
                 }
                 break;
             case 0xA: this.I = nnn; break; // LD I, nnn
