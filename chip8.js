@@ -166,7 +166,7 @@ class CHIP8 {
                 break;
             case 0xE:
                 switch (kk) {
-                    case 0x9E: ; break;
+                    case 0x9E: break;
                 }
                 break;
             case 0xF:
