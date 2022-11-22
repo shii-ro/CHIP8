@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>ChippuHachi</title>
+</head>
+
+<body>
+    <main>
+        <section class="emulator">
+            <div class="screen">
+                <canvas id="canvas"></canvas>
+                <div class="buttons">
+                    <label for="rom">Select ROM: <input id="rom" type='file' onchange="loadRom(this)"></label>
+                    <div class="buttons-inside">
+                        <button onclick="c8.run();">Run</button>
+                        <button onclick="c8.step();">Step</button>
+                        <button>Pause</button>
+                        <button>Stop</button>
+                    </div>
+                </div>
+                </div>
+
+            <div class="registers">
+                <div class="general-registers registers-table">
+                    <div class="indexes">
+                        <p class="heading">&nbsp;</p>
+                        <p>0</p>
+                        <p>1</p>
+                        <p>2</p>
+                        <p>3</p>
+                        <p>4</p>
+                        <p>5</p>
+                        <p>6</p>
+                        <p>7</p>
+                        <p>8</p>
+                        <p>9</p>
+                        <p>A</p>
+                        <p>B</p>
+                        <p>C</p>
+                        <p>D</p>
+                        <p>E</p>
+                        <p>F</p>
+                    </div>
+                    <div class="v debug">
+                        <p class="heading">V</p>
+                        <div id="v">
+                            <p>a</p>
+                            <p>a</p>
+                            <p>a</p>
+                            <p>a</p>
+                            <p>a</p>
+                            <p>a</p>
+                            <p>a</p>
+                            <p>a</p>
+                            <p>a</p>
+                            <p>a</p>
+                            <p>a</p>
+                            <p>a</p>
+                            <p>a</p>
+                            <p>a</p>
+                            <p>a</p>
+                            <p>a</p>
+                        </div>
+                    </div>
+                    <div class="s debug">
+                        <p class="heading">S</p>
+                        <div id="s">
+                            <p>a</p>
+                            <p>a</p>
+                            <p>a</p>
+                            <p>a</p>
+                            <p>a</p>
+                            <p>a</p>
+                            <p>a</p>
+                            <p>a</p>
+                            <p>a</p>
+                            <p>a</p>
+                            <p>a</p>
+                            <p>a</p>
+                            <p>a</p>
+                            <p>a</p>
+                            <p>a</p>
+                            <p>a</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="pointer-registers registers-table">
+                    <div class="indexes">
+                        <p>PC</p>
+                        <p>SP</p>
+                        <p>I</p>
+                    </div>
+                    <div class="values" id="indexes">
+                        <p>a</p>
+                        <p>a</p>
+                        <p>a</p>
+                    </div>
+                </div>
+                <div class="delay-registers registers-table">
+                    <div class="indexes">
+                        <p>DT</p>
+                        <p>ST</p>
+                    </div>
+                    <div class="values">
+                        <p>a</p>
+                        <p>a</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script src="chip8.js"></script>
+    <script>
+        var c8 = new CHIP8();
+
+        c8.init();
+
+        function loadRom(input) {
+            let file = input.files[0];
+            let reader = new FileReader(); // no arguments
+            let view = null;
+            reader.readAsArrayBuffer(file);
+
+            reader.onloadend = () => {
+                view = new Uint8Array(reader.result);
+                c8.loadRom(view);
+            }
+        }
+    </script>
+</body>
+
+</html>
