@@ -6,7 +6,7 @@ c.height = 32;
 class CHIP8 {
     framebuffer = ctx.createImageData(c.width, c.height);
     constructor() {
-        this.keyboard[16];
+        this.keyboard = new Array(16);
         this.mem = new Uint8Array(4096);
         this.V = new Uint8Array(16); // Registers
         this.S = new Uint16Array(16); // Stack
